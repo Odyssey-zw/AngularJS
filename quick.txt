@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="css/common.css">
+	<title>AngularJSDemo</title>
+</head>
+
+<body>
+
+<div ng-app="">
+
+</div>
+
+<script src= "lib/angular-1.4.8/angular.min.js"></script>
+
+</body>
+</html>

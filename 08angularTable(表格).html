@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="css/common.css">
+	<title>AngularJSDemo</title>
+</head>
+
+<body>
+
+<div ng-app="myapp" ng-controller="tableCtrl">
+	<table>
+		<tr ng-repeat="x in persons">
+			<td>{{$index+1}}</td>		<!-- 显示序号 ($index) -->
+			<td>{{x.name}}</td>
+			<td>{{x.city}}</td>
+			<td>{{x.country}}</td>
+		</tr>
+	</table>
+
+	<p>使用 $even(偶) 和 $odd(奇)</p>
+	<table>
+		<tr ng-repeat="x in persons">
+			<!-- 奇数行使用浅绿色,偶数行使用白色 -->
+			<td style="background-color:#FFFFFF">{{$index}}</td>
+			<td ng-if="$odd" style="background-color:#E5EECC">{{x.name}}</td>
+			<td ng-if="$even" style="background-color:#FFFFFF">{{x.name}}</td>
+			<td ng-if="$odd" style="background-color:#E5EECC">{{x.city}}</td>
+			<td ng-if="$even" style="background-color:#FFFFFF">{{x.city}}</td>
+		</tr>
+	</table>
+</div>
+
+<script src= "lib/angular-1.4.8/angular.min.js"></script>
+<script type="text/javascript">
+angular.module("myapp",[]).controller("tableCtrl",function($scope){
+	$scope.persons = [{
+		name:"Xiao", city:"Shanghai", country:"China"
+	},{
+		name:"Jack", city:"London", country:"England"
+	},{
+		name:"LiSi", city:"Beijing", country:"China"
+	},{
+		name:"Sam", city:"NewYork", country:"America"
+	}]
+})
+</script>
+
+</body>
+</html>

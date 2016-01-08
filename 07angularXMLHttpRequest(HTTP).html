@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="css/common.css">
+	<title>AngularJSDemo</title>
+</head>
+
+<body>
+<code>
+AngularJS $http 是一个用于读取web服务器上数据的服务。<br>
+$http.get(url) 是用于读取服务器数据的函数。<br>
+</code>
+<div ng-app="myapp" ng-controller="jsonCtrl">
+	<ul>
+		<li ng-repeat="x in persons">{{x.Name +", "+ x.City}}</li>
+	</ul>
+</div>
+
+<script src= "lib/angular-1.4.8/angular.min.js"></script>
+<script type="text/javascript">
+//注意：以下代码的 get 请求是本站的服务器，会存在跨域问题
+angular.module("myapp",[]).controller("jsonCtrl",function($scope,$http){
+	var site = "persons.json";
+	$http.get(site).success(function(response){
+		$scope.persons = response.records;
+	})
+})
+// 以上代码也可以用于读取数据库数据
+</script>
+
+</body>
+</html>

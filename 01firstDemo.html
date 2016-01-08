@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>TheFirstDemo</title>
+</head>
+
+<body>
+
+<!-- ng-app 指令定义一个AngularJS应用程序, ng-init 指令初始化应用程序变量(不常用), ng-controller 定义了控制器 -->
+<div ng-app="" ng-init="age=22;country='China'">
+	<p>The First Demo中文:</p>
+	<!-- ng-model 指令把元素值（比如输入域的值）绑定到应用程序 -->
+	<p>Name: <input type="text" ng-model="name"></p>
+	<!-- ng-bind 指令把应用程序数据绑定到 HTML 视图 -->
+	<p><span ng-bind="name"></span> is <span ng-bind="age"></span> years old.</p>
+	<!-- AngularJS 表达式写在双大括号内：{{ expression }} -->
+	<span>next year, is {{1+age}}</span>
+	
+</div>
+
+<!-- 建议把脚本放在<body>元素的底部,会提高网页加载速度,因为HTML加载不受制于脚本加载 -->
+<script src="lib/angular-1.4.8/angular.min.js"></script>
+
+</body>
+</html>

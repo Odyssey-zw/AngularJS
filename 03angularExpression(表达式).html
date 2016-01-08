@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="css/common.css">
+	<title>AngularJSDemo</title>
+</head>
+
+<body>
+
+<code>
+AngularJS 表达式写在双大括号内：{{ expression }}。<br>
+AngularJS 表达式把数据绑定到 HTML，这与 ng-bind 指令有异曲同工之妙。<br>
+AngularJS 将在表达式书写的位置"输出"数据。<br>
+AngularJS 表达式 很像 JavaScript 表达式：它们可以包含文字、运算符和变量。 <br>
+</code>
+
+<div ng-app="" ng-init="name='zhang';age=25;birth=1991;hobby={favourite:'games',times:'everyday'};colors=[1,2,3]">
+
+	<p>姓名: {{name}}</p>	<!-- AngularJS 字符串 -->
+	<p>年龄: {{age}}</p>	<!-- AngularJS 数字 -->
+	<p>年份一: {{birth + age}}</p>
+	<p>年份二: <span ng-bind="birth+age"></span></p><!-- 使用 ng-bind 的相同效果 -->
+	<p>爱好: {{hobby.favourite}}</p>		<!-- AngularJS 对象 -->
+	<p>颜色: {{colors[1]}}</p>		<!-- AngularJS 数组 -->
+
+</div>
+
+<code> AngularJS 表达式 与 JavaScript 表达式: <br>
+类似于 JavaScript 表达式，AngularJS 表达式可以包含字母，操作符，变量。 <br>
+与 JavaScript 表达式不同，AngularJS 表达式可以写在 HTML 中。<br>
+与 JavaScript 表达式不同，AngularJS 表达式不支持条件判断，循环及异常。<br>
+与 JavaScript 表达式不同，AngularJS 表达式支持过滤器。<br>
+</code>
+
+<script src= "lib/angular-1.4.8/angular.min.js"></script>
+
+</body>
+</html>

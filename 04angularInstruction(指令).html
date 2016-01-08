@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="css/common.css">
+	<title>AngularJSDemo</title>
+</head>
+
+<body>
+<code>
+AngularJS 指令<br>
+AngularJS 指令是扩展的 HTML 属性，带有前缀 ng-。<br>
+ng-app 指令初始化一个 AngularJS 应用程序。<br>
+ng-init 指令初始化应用程序数据。<br>
+ng-model 指令把元素值（比如输入域的值）绑定到应用程序 <br>
+ng-repeat 指令会重复一个 HTML 元素 <br>
+</code>
+
+<div ng-app="" ng-init="firstName='Tom';quantity=1;price=5;persons=[{name:'Jack',country:'UK'},{name:'John',country:'CN'},{name:'Hege',country:'AF'}]">
+	<h3>在输入框中输入:</h3>
+	<p>姓名: <input type="text" ng-model="firstName"></p>
+	<p>你输入的为:{{firstName}}</p>
+
+	<h3>计算价钱</h3>
+	<p>数量: <input type="number" ng-model="quantity"></p>
+	<p>价格: <input type="number" ng-model="price"></p>
+	<p>总价: {{quantity * price}}</p>
+
+	<h3>循环对象:</h3>
+	<ul>
+		<li ng-repeat="x in persons">{{x.name + ',' + x.country}}</li>
+	</ul>
+</div>
+
+<h3>总结:</h3>
+<code>
+ng-app 指令<br>
+ng-app 指令定义了 AngularJS 应用程序的 根元素。<br>
+ng-app 指令在网页加载完毕时会自动引导（自动初始化）应用程序。<br><br>
+
+ng-init 指令<br>
+ng-init 指令为 AngularJS 应用程序定义了 初始值。<br>
+通常情况下，不使用 ng-init。您将使用一个控制器或模块来代替它。<br><br>
+
+ng-model 指令<br>
+ng-model 指令 绑定 HTML 元素 到应用程序数据。<br>
+ng-model 指令也可以：<br>
+&nbsp;&nbsp;1.为应用程序数据提供类型验证（number、email、required）。<br>
+&nbsp;&nbsp;2.为应用程序数据提供状态（invalid、dirty、touched、error）。<br>
+&nbsp;&nbsp;3.为 HTML 元素提供 CSS 类。<br>
+&nbsp;&nbsp;4.绑定 HTML 元素到 HTML 表单。<br><br>
+
+ng-repeat 指令<br>
+ng-repeat 指令对于集合中（数组中）的每个项会 克隆一次 HTML 元素。<br>
+
+</code>
+
+<script src= "lib/angular-1.4.8/angular.min.js"></script>
+
+</body>
+</html>

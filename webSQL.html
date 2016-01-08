@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<script type="text/javascript">
+
+		//打开数据库 -- mydb
+		//	openDatebase(name,version,description,size)
+		var db = openDatabase("mydb","1.0","TestDB", 2*1024*1024);
+
+		//创建表 -- PERSONS
+		db.transaction(function (tx) {
+			// tx.executeSql(sqlQuery,[value1,value2..]/*option*/,dataHandler/*option*/,errorHandler/*option*/) 
+			tx.executeSql("CREATE TABLE IF NOT EXISTS PERSONS (username, mobilephone, city, createtime)",[],
+				function (tx,result){
+					console.log('创建PERSONS表成功');
+			}, function (tx, error){
+					console.log('创建PERSONS表失败:' + error.message); 
+			});
+		});
+
+		//时间转换
+    	Date.prototype.format = function(format) { 
+        	var o = { 
+                "M+" : this.getMonth()+1, // month
+                "d+" : this.getDate(), // day
+                "h+" : this.getHours(), // hour
+                "m+" : this.getMinutes(), // minute
+                "s+" : this.getSeconds(), // second
+                "q+" : Math.floor((this.getMonth()+3)/3), // quarter
+                "S" : this.getMilliseconds() // millisecond
+            } 
+            if(/(y+)/.test(format)) format=format.replace(RegExp.$1, 
+            (this.getFullYear()+"").substr(4 - RegExp.$1.length)); 
+            for(var k in o)if(new RegExp("("+ k +")").test(format)) 
+            format = format.replace(RegExp.$1, 
+            RegExp.$1.length==1 ? o[k] : 
+            ("00"+ o[k]).substr((""+ o[k]).length)); 
+            return format; 
+        };
+        // var time = new Date(); 
+		// time.setTime(row.createtime);
+		// var timeStr = time.format("yyyy-MM-dd hh:mm:ss"); 
+
+		/*******************************************************************************************/
+		window.onload = loadAll();
+
+		function loadAll(){
+			//查询数据
+			db.transaction(function (tx) {
+	            tx.executeSql('SELECT * FROM PERSONS', [], function (tx, rs) {
+	            	var list = document.getElementById("list");
+	                console.log(rs);
+	            	if(rs.rows.length>0){ 
+						var result = "<table>"; 
+						result += "<tr><th>序号</th><th>姓名</th><th>手机</th><th>城市</th><th>添加时间</th><th>操作</th></tr>"; 
+						for(var i = 0; i < rs.rows.length; i++){
+							var row = rs.rows.item(i);
+							console.log("第"+i+"行数据为:");
+							console.log(row);	//Object {pname: "张三", mobilephone: "293432974", city: "上海", createtime: 1451550965010}
+
+							//转换时间，并格式化输出 
+							var time = new Date();
+							time.setTime(row.createtime);
+							var timeStr = time.format("yyyy-MM-dd hh:mm:ss");
+							//拼装一个表格的行节点 
+							result += "<tr><td>"+(i+1)+"</td><td>"+row.pname+"</td><td>"+row.mobilephone+"</td><td>"+row.city+"</td><td>"+timeStr+"</td><td><input type='button' value='删除' onclick='del("+row.createtime+")'/></td></tr>"; 
+						}
+						list.innerHTML = result;
+					}else{ 
+						list.innerHTML = "目前数据为空"; 
+					} 
+	            }, null);
+	        });
+		}
+
+		function save(){
+			var pname = document.getElementById("pname").value;
+			var mobilephone = document.getElementById("mobilephone").value;
+			var city = document.getElementById("city").value;
+			var time = new Date().getTime(); 
+
+			//插入数据
+			db.transaction(function (tx){
+				tx.executeSql('INSERT INTO PERSONS (pname, mobilephone, city, createtime) VALUES (?, ?, ?, ?)',[pname, mobilephone, city, time],function (tx, rs){
+					console.log("插入数据成功");
+					loadAll();
+				},function (tx, error){
+					console.log('创建PERSONS表失败:' + error.message); 
+				});
+			})
+		}
+
+		function del(createtime) {
+			//删除数据
+			db.transaction(function (tx){
+				tx.executeSql('delete from persons where createtime = ?',[createtime],function(tx, rs){
+					console.log("删除成功");
+					loadAll();
+				},function (tx,error){
+					console.log("删除数据失败:" + error.message);
+				})
+			})
+		}
+
+
+	</script>
+	<style type="text/css">
+		.addDiv{ 
+			border: 2px dashed #ccc; 
+			width:400px; 
+			text-align:center; 
+		} 
+	</style>
+</head>
+
+<body>
+	<div class="addDiv"> 
+		<label for="pname">姓名：</label> 
+		<input type="text" id="pname" name="pname" class="text"/> 
+		<br/> 
+		<label for="mobilephone">手机：</label> 
+		<input type="text" id="mobilephone" name="mobilephone"/> 
+		<br/> 
+		<label for="city">城市：</label> 
+		<input type="text" id="city" name="city"/> 
+		<br/> 
+		<input type="button" onclick="save()" value="新增记录"/> 
+	</div>
+
+	<br/>
+
+	<div id="list"> 
+	</div>
+</body>
+</html>

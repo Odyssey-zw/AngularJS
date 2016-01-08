@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		body{
+		    font-family: "宋体","microsoft yahei",Arial, Helvetica, sans-serif;
+		    font-size: 12px;
+    		/*background: black;*/
+    		/*color: #a0a0a0;*/
+		}
+		.heroDiv{
+			width: 50px;
+			height: 53px;
+			padding: 3px;
+			padding-bottom: 15px;
+			margin: 3px;
+			/*background-color: #2a1f3f;*/
+			border: 1px solid #46346a;
+			text-align: center;
+			display: inline-block;
+    		/*line-height: 24px;*/
+		}
+		.heroDiv img{
+			width:48px;
+			height:48px;
+			border:1px solid #46346a;
+		}
+		a:link {
+			color: #191970;
+			text-decoration:none;
+		}
+		a:visited {
+			color: #191970
+		}
+	</style>
+	<title>DargDivDemo</title>
+</head>
+
+<body>
+
+<div id="team1" class="team">
+	<div id="customDiv1" class="heroDiv"></div>
+	<div id="customDiv2" class="heroDiv"></div>
+	<div id="customDiv3" class="heroDiv"></div>
+	<div id="customDiv4" class="heroDiv"></div>
+	<div id="customDiv5" class="heroDiv"></div>
+</div>
+
+<div id="container"></div>
+
+<!-- <div id="heroDiv2" class="heroDiv">
+		<img src="" alt="" title="">
+		<em></em>
+</div> -->
+
+	<script type="text/javascript">
+		var heros = [{
+        	"heroId": "124",
+        	"heroName": "小精灵"
+    	},{
+        	"heroId": "57",
+        	"heroName": "白牛"
+    	}];
+
+    	var container = document.getElementById("container"),innerContent="";
+
+    	for(var i=0;i<heros.length;i++){
+    		var imgLink = "images/heros/" + heros[i].heroId + ".jpg";
+    		var heroName = heros[i].heroName;
+    		innerContent += "<div id='heroDiv"+ heros[i].heroId +"' class='heroDiv' draggable='true'><img src='"+ imgLink +"' alt='"+heros[i].heroName+"' title='"+heros[i].heroName+"'><span>"+heros[i].heroName+"</span></div>";
+    	}
+    	container.innerHTML = innerContent;
+
+    	var targetDiv = document.querySelectorAll("#team1 .heroDiv"),
+    		sourceDiv = document.querySelectorAll("#container .heroDiv"), id, eleDrag = null;
+
+    	for(var i=0; i<sourceDiv.length; i++){
+    		sourceDiv[i].ondragstart = function(ev) {	/*拖拽开始*/
+    			// ev.dataTransfer.efffectAllowed = "move";
+    			id = ev.target.id ? ev.target.id: ev.target.parentNode.id;
+    			ev.dataTransfer.setData("text", id);
+    			// ev.dataTransfer.setDragImage(ev.target, 0, 0);
+    			eleDrag = document.getElementById(id);
+    			console.log("拖拽开始");
+    			return true;
+    		};
+    		sourceDiv[i].ondragend = function(ev) {	 /*拖拽结束*/
+		        ev.dataTransfer.clearData("text");
+		        eleDrag = null;
+		        console.log("拖拽结束");
+		        return false
+		    };
+    	}
+    	for(var i=0; i<targetDiv.length; i++){
+    		targetDiv[i].ondragover = function(ev) {	/*拖拽元素在目标元素头上移动*/
+			    ev.preventDefault();
+			    console.log("拖拽元素在目标元素头上移动");
+			    return true;
+    		};
+    		targetDiv[i].ondragenter = function(ev) { 	/*拖拽元素进入目标元素头上*/
+			    console.log("拖拽元素进入目标元素头上");
+			    return true;
+			};
+			targetDiv[i].ondrop = function(ev) {	/*拖拽元素进入目标元素头上，同时鼠标松开*/
+			    if (eleDrag) {
+			    	//1 div 2 img/span
+			    	if("team1" != ev.target.parentNode.id){
+			    		ev.target.parentNode.innerHTML = "";
+			    	}
+			    	ev.target.innerHTML = eleDrag.innerHTML;
+			        eleDrag.parentNode.removeChild(eleDrag);
+			    }
+			    console.log("拖拽元素进入目标元素头上，同时鼠标松开");
+			    // this.style.color = "#000000";
+			    return false;
+			};
+    	}
+
+	</script>
+
+</body>
+</html>

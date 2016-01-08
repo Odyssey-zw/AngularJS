@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="css/common.css">
+	<script src= "lib/angular-1.4.8/angular.min.js"></script>
+	<title>AngularJSDemo</title>
+</head>
+
+<body>
+<code>
+AngularJS 应用程序被控制器控制。<br>
+ng-controller 指令定义了应用程序控制器。<br>
+控制器是 JavaScript 对象，由标准的 JavaScript 对象的构造函数创建。<br>
+</code>
+<div ng-app="reg" ng-controller="regCtrl">
+	<p>姓名:<input type="text" ng-model="username"></p>
+	<p>密码:<input type="password" ng-model="password"></p>
+	<p>年龄:<input type="number" ng-model="age"></p>
+
+	<p>注册信息为: {{message()}}</p>
+</div>
+
+<!-- 在大型的应用程序中，通常是把控制器存储在外部文件中 -->
+<script type="text/javascript" src="registerController.js"></script>
+
+</body>
+</html>

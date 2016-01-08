@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="css/common.css">
+	<script src= "lib/angular-1.4.8/angular.min.js"></script>
+	<title>AngularJSDemo</title>
+</head>
+
+<body>
+<code>
+过滤器可以使用一个管道字符（|）添加到表达式和指令中<br>
+AngularJS过滤器可用于转换数据：<br>
+&emsp;currency&emsp;&emsp;格式化数字为货币格式。<br>
+&emsp;filter&emsp;&emsp;&emsp;从数组项中选择一个子集。<br>
+&emsp;lowercase&emsp;&emsp;格式化字符串为小写。<br>
+&emsp;orderBy&emsp;&emsp;&emsp;根据某个表达式排列数组。<br>
+&emsp;uppercase&emsp;&emsp;格式化字符串为大写。<br>
+</code>
+
+<!-- orderBy 过滤器根据表达式排列数组 -->
+<!-- filter 过滤器从数组中选择一个子集 -->
+<div ng-app="myapp" ng-controller="catCtrl">
+	<p><input type="text" ng-model="test"></p>
+	<ul>
+		<li ng-repeat="x in cats|filter:test|orderBy:'country'">
+			{{(x.name|lowercase) +", "+ (x.price|currency) +","+(x.country|uppercase)}}</li>
+	</ul>
+</div>
+
+
+<script type="text/javascript">
+angular.module("myapp",[]).controller("catCtrl",function($scope){
+	$scope.cats = [{
+		name : "Kitty", age:5, price:100, country:"Japan"
+	},{
+		name : "Tom", age:6, price:200, country:"America"
+	},{
+		name : "Garfield", age:8, price:300, country:"America"
+	}]
+})
+</script>
+
+</body>
+</html>
