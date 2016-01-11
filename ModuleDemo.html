@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>ModuleDemo</title>
+	<link rel="stylesheet" type="text/css" href="css/syntax.css">
+
+	<script type="text/javascript">
+
+		(function (window, undefined){
+			var utils = function(){
+
+				var WebSQL = function (name,version,description,size){
+					var instance;
+
+					WebSQL = function WebSQL(name,version,description,size) {
+						// 打开连接数据库	openDatebase(name,version,description,size)
+						this.mydb = openDatabase(name,version,description,size);
+				        return instance;
+				    };
+
+    				WebSQL.prototype.executeSQL = function (sql, data, sucessCallBack, errorCallBack) {
+						this.mydb.transaction(function (tx) {
+							tx.executeSql(sql, data, sucessCallBack, errorCallBack);
+						})
+					};
+    				
+					instance = new WebSQL(name,version,description,size);
+					return instance;
+				};
+
+				return {
+					webSQL : WebSQL
+				};
+			};
+
+			window.utils = utils();
+		})(window);
+
+	</script>
+</head>
+
+<body>
+
+<div>
+<pre><code>{
+    "errNum": 0,
+    "retMsg": "success",
+    "retData": {
+        "cityName": "\u5317\u4eac",
+        "provinceName": "\u5317\u4eac",
+        "cityCode": "101010100",
+        "zipCode": "100000",
+        "telAreaCode": "010"
+    }
+}
+</code></pre>
+</div>
+
+<script type="text/javascript">
+		var u1 = utils.webSQL("mytest","1.0","TestDB", 2*1024*1024);
+
+		u1.executeSQL("create table if not exists province(code,text)",[],function(tx,rs){console.log(rs)},null);
+		u1.executeSQL("insert into province values(?,?)",["320000","江苏"],null,null);
+
+</script>
+
+</body>
+</html>
+
+
+
+
+		
