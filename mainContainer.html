@@ -4,12 +4,14 @@
 	<meta charset="UTF-8">
 	<link rel="stylesheet" type="text/css" href="css/mainIndex.css">
 	<script type="text/javascript">
+
+	//******************************* utils start ***********************//
 	var utils = {
 		trim : function(str){ 
 			return str.replace(/^\s\s*/, '').replace(/\s\s*$/, ''); 
 		}
 	};
-
+	//******************************* utils  end ***********************//
 	//******************************* ajax  start***********************//
 	var ajax = function(conf) {
 		var type = conf.type == null ? "GET" : utils.trim(conf.type).toUpperCase(), 				//String  type参数,可选,默认为get
