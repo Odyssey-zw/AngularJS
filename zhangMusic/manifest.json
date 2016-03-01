@@ -1,0 +1,21 @@
+{
+    "name": "我的音乐",		// Required
+    "version": "1.0.1",			// Required
+    "manifest_version": 2,		// Required
+    "description": "快捷进入网易云音乐收藏的插件",
+    "browser_action": {
+
+        "default_title": "我的私人音乐电台",      // optional; shown in tooltip
+        "default_popup": "popup.html"		// optional;
+    },
+    "icons": {
+         "16": "images/menu_logo.ico",
+         "48": "images/extension_logo.ico",
+         "128": "images/install_logo.ico"
+    },
+    "background_page": "background.html",
+    "options_page": "options.html",
+    "permissions": [
+        "*://*/*","tabs"
+    ]
+}
